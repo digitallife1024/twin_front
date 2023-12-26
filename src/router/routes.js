@@ -25,15 +25,15 @@
  */
    const frameIn = [
     {
-        path: '/',  //重构一个路径, 作为页面的根路径'/'
-        redirect: {name: 'index'},  //如果访问根路径, 重定向到名为index的页面(首页)
-        component: () => import('@/layout/index.vue'),  //具体指出是src/layout/index.vue,动态导入组件
+        // path: '/',  //重构一个路径, 作为页面的根路径'/'
+        // redirect: {name: 'index'},  //如果访问根路径, 重定向到名为index的页面(首页)
+        // component: () => import('@/layout/index.vue'),  //具体指出是src/layout/index.vue,动态导入组件
         /*************************************************************************************/
         /********************children 建议最多 再加一级children  否则侧边栏体验不好*********************/
         /*************************************************************************************/
-        // path: '/',
-        // redirect: {name: 'dataCenter' },
-        // component: () => import('@/views/demo/dataCenter/index.vue'),
+        path: '/',
+        redirect: {name: 'dataCenter' },
+        component: () => import('@/views/demo/dataCenter/index.vue'),
         children: [ //建立子页面
             {
                 path: '/index', //子页面的路径
