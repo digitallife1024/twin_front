@@ -409,7 +409,7 @@ const frameOut = [
         path: '/dataCenter',
         name: 'dataCenter',
         meta: {
-            title: '大屏展示',
+            title: '数字孪生平台',
         },
         component: () => import('@/views/demo/dataCenter/index.vue'),
     }

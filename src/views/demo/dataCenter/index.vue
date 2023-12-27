@@ -146,12 +146,14 @@
               </div>
             </section>
           </section> -->
-          <section class="left-item item-line left-one">
+          <section class="right-item item-line right-four">
             <div class="item-title">
               <span class="line"></span>
-              容器实时CPU使用率
+              CPU实时使用率(折线图)
+              <div class="select-date">
+              </div>
             </div>
-            <LkChart class="left-item-chat" key="CpuUsageOption" :option="CpuUsageOption"/>
+            <LkChart class="right-item-chat" key="CpuUsageOption" :option="CpuUsageOption"/>
           </section>
 
           <section class="right-item item-line right-two">
@@ -177,7 +179,7 @@
           <section class="right-item item-line right-four">
             <div class="item-title">
               <span class="line"></span>
-              用户访量统计
+              容器CPU实时使用率
               <div class="select-date">
 
               </div>
@@ -362,19 +364,67 @@ export default {
         {value: this.generateRandomInteger(20, 1000), address: '四川'},
         {value: this.generateRandomInteger(20, 1000), address: '重庆'}
       ]
+
+
+
       //投诉数量统计(取数量最多的10个司机)
+      let ws;
+      var datastring;
+      // WebSocket服务地址
+      // 创建WebSocket对象，连接到服务器上的 /ws 路径
+      ws = new WebSocket("ws://localhost:8080/ws");
+      ws.onopen = function(event) {
+          console.log("Connected to WebSocket.");
+      };
+      // 当服务器通过WebSocket发送消息时，这个函数会被调用，并且接收到的数据会显示在网页上
+      ws.onmessage = function(event) {
+          console.log("Received data: " + event.data);
+          datastring = event.data;
+          // 更新页面上的数据
+          // document.getElementById("dataDisplay").innerText = event.data;
+      };
+      ws.onclose = function(event) {
+          console.log("WebSocket connection closed.");
+          setTimeout(connectWebSocket, 5000); // 5秒后重连
+      };
+      ws.onerror = function(event) {
+          console.error("WebSocket error observed:", event);
+      };
+
+      //解析收到的JSON字符串为JS对象
+      let parsedData = JSON.parse(datastring);
+      let extractedData = parsedData.data.result.map(item => ({
+        value: item.value[1],
+        name: item.metric.name
+      }));
+      extractedData.sort((a, b) => b.value - a.value);
       let ComplaintNumberData = [
-        {value: this.generateRandomInteger(5, 100), name: '访客1'},
-        {value: this.generateRandomInteger(5, 100), name: '访客2'},
-        {value: this.generateRandomInteger(5, 100), name: '访客3'},
-        {value: this.generateRandomInteger(5, 100), name: '访客4'},
-        {value: this.generateRandomInteger(5, 100), name: '访客5'},
-        {value: this.generateRandomInteger(5, 100), name: '访客6'},
-        {value: this.generateRandomInteger(5, 100), name: '访客7'},
-        {value: this.generateRandomInteger(5, 100), name: '访客8'},
-        {value: this.generateRandomInteger(5, 100), name: '访客9'},
-        {value: this.generateRandomInteger(5, 100), name: '访客0'}
+        {value: extractedData[0].value, name: '容器1'},
+        {value: extractedData[1].value, name: '容器2'},
+        {value: extractedData[2].value, name: '容器3'},
+        {value: extractedData[3].value, name: '容器4'},
+        {value: extractedData[4].value, name: '容器5'},
+        {value: extractedData[5].value, name: '容器6'},
+        {value: extractedData[6].value, name: '容器7'},
+        {value: extractedData[7].value, name: '容器8'},
+        {value: extractedData[8].value, name: '容器9'},
+        {value: extractedData[9].value, name: '容器10'},
+
       ]
+      // let ComplaintNumberData = [
+      //   {value: this.generateRandomInteger(5, 100), name: '容器1'},
+      //   {value: this.generateRandomInteger(5, 100), name: '容器2'},
+      //   {value: this.generateRandomInteger(5, 100), name: '容器3'},
+      //   {value: this.generateRandomInteger(5, 100), name: '容器4'},
+      //   {value: this.generateRandomInteger(5, 100), name: '容器5'},
+      //   {value: this.generateRandomInteger(5, 100), name: '容器6'},
+      //   {value: this.generateRandomInteger(5, 100), name: '容器7'},
+      //   {value: this.generateRandomInteger(5, 100), name: '容器8'},
+      //   {value: this.generateRandomInteger(5, 100), name: '容器9'},
+      //   {value: this.generateRandomInteger(5, 100), name: '容器10'}
+      // ]
+
+
 
       //流量环比上升(取3地区)
       let IncreaseInComplaintsData = [
@@ -431,6 +481,7 @@ export default {
       this.TradingPeakOption.xAxis.data = TradingPeakData.map(e => e.time)
       this.ComplaintRiskOption.series[0].data = ComplaintRiskData
       this.ComplaintRiskOption.xAxis.data = ComplaintRiskData.map(e => e.address)
+
       this.ComplaintNumberOption.series[0].data = ComplaintNumberData
       this.ComplaintNumberOption.xAxis[0].data = ComplaintNumberData.map(e => e.name)
     },

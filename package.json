@@ -8,7 +8,9 @@
     "preview": "vite preview",
     "build:dev": "vite build --mode development",
     "build:pro": "vite build --mode production",
-    "test:unit": "vitest"
+    "test:unit": "vitest",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist -r git@github.com:digitallife1024/twin_front.git -b gh-pages"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",

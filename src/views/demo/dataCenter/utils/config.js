@@ -21,7 +21,7 @@ for (var i = 0; i < 24; i++) {
 }
 // require('echarts/theme/macarons') // echarts theme
 
-// 容器CPU实时使用率
+//容器CPU实时使用率(折线图)
 export const CpuUsageOption = {
     xAxis: {
       type: 'time',
@@ -109,26 +109,8 @@ export const CpuUsageOption = {
       }
     ]
   };
-  
-  // Update data every second
-//   setInterval(function () {
-//     data.shift(); // Remove the first data point
-//     now = new Date().getTime(); // Update current time
-//     data.push({
-//       name: new Date(now).toISOString(),
-//       value: [
-//         new Date(now).toISOString(),
-//         Math.round(Math.random() * 1000)
-//       ]
-//     });
-//     myChart.setOption({
-//       series: [
-//         {
-//           data: data
-//         }
-//       ]
-//     });
-//   }, 1000);
+
+
 
 
 // 峰值环比
@@ -730,7 +712,7 @@ export const ComplaintNumberOption = {
     },
     xAxis: [{
         type: 'category',
-        data: ['访客1', '访客2', '访客3', '访客4', '访客5', '访客6', '访客7', '访客8', '访客9', '访客0'],
+        data: ['容器1', '容器2', '容器3', '容器4', '容器5', '容器6', '容器7', '容器8', '容器9', '容器10'],
         axisLine: {show: false,},
         axisLabel: {
             color: 'rgba(255,255,255,.6)',
@@ -741,6 +723,7 @@ export const ComplaintNumberOption = {
         axisLabel: {
             color: 'rgba(255,255,255,.6)',
             fontSize: 12
+
         },
 
         axisLine: {
@@ -756,16 +739,16 @@ export const ComplaintNumberOption = {
     series: [{
         type: 'bar',
         data: [
-            {value: 25, name: '访客1'},
-            {value: 5, name: '访客2'},
-            {value: 34, name: '访客3'},
-            {value: 45, name: '访客4'},
-            {value: 21, name: '访客5'},
-            {value: 31, name: '访客6'},
-            {value: 15, name: '访客7'},
-            {value: 20, name: '访客9'},
-            {value: 14, name: '访客0'},
-            {value: 24, name: '访客8'}
+            {value: 0, name: '容器1'},
+            {value: 0, name: '容器2'},
+            {value: 0, name: '容器3'},
+            {value: 0, name: '容器4'},
+            {value: 0, name: '容器5'},
+            {value: 0, name: '容器6'},
+            {value: 0, name: '容器7'},
+            {value: 0, name: '容器8'},
+            {value: 0, name: '容器9'},
+            {value: 0, name: '容器10'}
         ],
         barWidth: '11px',
         itemStyle: {
